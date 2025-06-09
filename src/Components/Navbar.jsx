@@ -1,0 +1,39 @@
+import React from 'react';
+import Logo from "../assets/logo.jpg"
+import { Link } from 'react-router';
+import { GiHamburgerMenu } from 'react-icons/gi';
+//import { GiHamburgerMenu } from "react-icons/gi";
+const Navbar = () => {
+  return (
+    <div className="navbar flex justify-between items-center px-3 md:px-8  lg:px-16 bg-base-200  shadow-sm">
+      <div className="flex justify-center items-center gap-2 ">
+        <div className="dropdown  block md:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
+          </div>
+          <ul
+            tabIndex={0}
+            className=" dropdown-content space-y-3 bg-base-300 rounded-box shadow-md z-1 mt-3 w-52 p-2 shadow">
+            <li>Home</li>
+            <li>Rooms</li>
+            <li>My Bookings</li>
+            <li><Link className='btn btn-sm btn-primary'>Sign In</Link></li>
+          </ul>
+        </div>
+        <img src={Logo} className='w-7 md:w-9'></img>
+        <Link><h1 className='md:text-xl font-bold text-gray-700'>QuickStay</h1></Link>
+      </div>
+
+      <div className="hidden md:block">
+        <ul className='flex justify-center items-center gap-3'>
+          <li>Home</li>
+          <li>Rooms</li>
+          <li>My Bookings</li>
+          <li><Link className='btn btn-sm px-8 rounded-full btn-primary'>Sign In</Link></li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
