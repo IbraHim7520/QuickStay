@@ -17,7 +17,7 @@ const Navbar = () => {
             <li>Home</li>
              <NavLink to={'/rooms'} className={({isActive})=> isActive ? "text-blue-500" : "text-black"} >Rooms</NavLink>
             <li>My Bookings</li>
-            <li><Link className='btn btn-sm btn-primary'>Sign In</Link></li>
+            <li><Link to={"/login"} className='btn btn-sm btn-primary'>Sign In</Link></li>
           </ul>
         </div>
         <img src={Logo} className='w-7 md:w-9'></img>
@@ -29,7 +29,7 @@ const Navbar = () => {
           <li>Home</li>
           <NavLink to={'/rooms'} className={({isActive})=> isActive ? "text-blue-500" : "text-black"} >Rooms</NavLink>
           <li>My Bookings</li>
-          <li><Link className='btn btn-sm px-8 rounded-full btn-primary'>Sign In</Link></li>
+          <li><Link to={"/login"} className='btn btn-sm px-8 rounded-full btn-primary'>Sign In</Link></li>
         </ul>
       </div>
     </div>
