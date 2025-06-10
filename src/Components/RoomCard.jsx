@@ -5,7 +5,7 @@ import { CiLocationOn } from "react-icons/ci";
 const RoomCard = ({ room }) => {
     const { _id, name, image, roomRating, hotelLocation, type, pricePerNight } = room
     return (
-        <div className="card   w-80 bg-base-100  shadow-sm">
+        <div className="card   w-80 bg-base-200  shadow-sm">
             <figure>
                 <img
                     className='h-52  w-full object-cover'

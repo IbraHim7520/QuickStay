@@ -14,7 +14,7 @@ const Navbar = () => {
           <ul
             tabIndex={0}
             className=" dropdown-content space-y-3 bg-base-300 rounded-box shadow-md z-1 mt-3 w-52 p-2 shadow">
-            <li>Home</li>
+             <NavLink to={'/'} className={({isActive})=> isActive ? "text-blue-500" : "text-black"} >Home</NavLink>
              <NavLink to={'/rooms'} className={({isActive})=> isActive ? "text-blue-500" : "text-black"} >Rooms</NavLink>
             <li>My Bookings</li>
             <li><Link to={"/login"} className='btn btn-sm btn-primary'>Sign In</Link></li>
@@ -26,7 +26,7 @@ const Navbar = () => {
 
       <div className="hidden md:block">
         <ul className='flex justify-center items-center gap-3'>
-          <li>Home</li>
+          <NavLink to={'/'} className={({isActive})=> isActive ? "text-blue-500" : "text-black"} >Home</NavLink>
           <NavLink to={'/rooms'} className={({isActive})=> isActive ? "text-blue-500" : "text-black"} >Rooms</NavLink>
           <li>My Bookings</li>
           <li><Link to={"/login"} className='btn btn-sm px-8 rounded-full btn-primary'>Sign In</Link></li>

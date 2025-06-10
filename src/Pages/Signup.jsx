@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router';
 import G9 from "../assets/register.jpg"
 const Signup = () => {
+    const HandleUserResister = (e) =>{
+            e.preventDefault();
+    }
     return (
                <section className="p-6 dark:bg-gray-100 dark:text-gray-800">
             <div className="container grid gap-6 mx-auto text-center lg:grid-cols-2 xl:grid-cols-5">
@@ -13,7 +16,7 @@ const Signup = () => {
                             <input id="name" type="email" required placeholder="example@mail.com" className="w-full input rounded-md " />
                             <input id="pass" type="password" placeholder="password" className="w-full input rounded-md" />
                             <input id="lastname" type="password" placeholder="confirm password" className="w-full input rounded-md" />
-                        <button type="button" className="w-full btn btn-outline btn-primary">Register</button>
+                        <button type="submit" className="w-full btn btn-outline btn-primary">Register</button>
                     </form>
                     <div className='mt-5 space-y-3'>
                         <p className='text-sm'>Or Continue With</p>
