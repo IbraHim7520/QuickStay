@@ -1,0 +1,26 @@
+[
+    {
+        "id":1,
+        "percent":20,
+        "expireDate": "23 Dec 2025",
+        "title": "Summer Escape Package",
+        "description": "Enjoy a complimentary night and daily breakfast",
+        "image": "https://th.bing.com/th/id/R.63f42248b2c177e1881816fe0e443516?rik=EuEjBY13%2fh84wQ&pid=ImgRaw&r=0"
+    },
+        {
+        "id":2,
+        "percent":15,
+        "expireDate": "31 Aug 2025",
+        "title": "Romantic Getway",
+        "description": "Special couples package including spa treatment",
+        "image": "https://th.bing.com/th/id/OIP.9BxuiUU_WpavZdSt1piFMQHaEW?rs=1&pid=ImgDetMain"
+    },
+        {
+        "id":3,
+        "percent":10,
+        "expireDate": "14 Sep 2025",
+        "title": "Luxury Retreat",
+        "description": "Book 60 days in advance and save on your stay at any of our luxury properties worldwide.",
+        "image": "https://th.bing.com/th/id/OIP.YHcwjjPVm0UbBcemDD6dCgHaE7?rs=1&pid=ImgDetMain"
+    }
+]

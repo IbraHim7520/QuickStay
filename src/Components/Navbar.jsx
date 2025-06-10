@@ -1,11 +1,11 @@
 import React from 'react';
 import Logo from "../assets/logo.jpg"
-import { Link } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import { GiHamburgerMenu } from 'react-icons/gi';
 //import { GiHamburgerMenu } from "react-icons/gi";
 const Navbar = () => {
   return (
-    <div className="navbar flex justify-between items-center px-3 md:px-8  lg:px-16 bg-base-200  shadow-sm">
+    <div className="navbar  flex justify-between items-center px-3 md:px-8  lg:px-16 bg-base-200  shadow-sm">
       <div className="flex justify-center items-center gap-2 ">
         <div className="dropdown  block md:hidden">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -15,7 +15,7 @@ const Navbar = () => {
             tabIndex={0}
             className=" dropdown-content space-y-3 bg-base-300 rounded-box shadow-md z-1 mt-3 w-52 p-2 shadow">
             <li>Home</li>
-            <li>Rooms</li>
+             <NavLink to={'/rooms'} className={({isActive})=> isActive ? "text-blue-500" : "text-black"} >Rooms</NavLink>
             <li>My Bookings</li>
             <li><Link className='btn btn-sm btn-primary'>Sign In</Link></li>
           </ul>
@@ -27,7 +27,7 @@ const Navbar = () => {
       <div className="hidden md:block">
         <ul className='flex justify-center items-center gap-3'>
           <li>Home</li>
-          <li>Rooms</li>
+          <NavLink to={'/rooms'} className={({isActive})=> isActive ? "text-blue-500" : "text-black"} >Rooms</NavLink>
           <li>My Bookings</li>
           <li><Link className='btn btn-sm px-8 rounded-full btn-primary'>Sign In</Link></li>
         </ul>

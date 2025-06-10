@@ -45,7 +45,7 @@ const Banner = () => {
                 <h1 className='text-sm bg-blue-200 w-fit mx-auto px-5 p-1 text-black rounded-full '>The Ultimate Travel Experience</h1>
                 <h1 className='text-3xl font-bold shadow-md '>Discover Your<br></br>Perfect Getway Destination</h1>
                 <p className='font-semibold '>Unparalleled luxury and comfort await at the world's most<br></br>exclusive hotels and resorts. Start your journey today.</p>
-                <Link className='btn px-12 mt-5  btn-primary'>Book Now</Link>
+                <Link to={"/rooms"} className='btn px-12 mt-5  btn-primary'>Book Now</Link>
             </motion.div>
          </div>
     );

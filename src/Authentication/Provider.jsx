@@ -1,10 +1,14 @@
 import React from 'react';
+import UserContext from './UserContext';
 
-const Provider = () => {
-    return (
-        <div>
+const Provider = ({children}) => {
+        const info = {
             
-        </div>
+        }
+    return (
+        <UserContext value={info}>
+            {children}
+        </UserContext>
     );
 };
 
