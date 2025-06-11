@@ -3,6 +3,7 @@ import Root from "../src/Pages/Root"
 import Home from "../src/Pages/Home"
 import Rooms from "../src/Pages/Rooms"
 import Login from "../src/Pages/Login";
+import MyBookings from "../src/Pages/MyBookings"
 import Signup from "../src/Pages/Signup";
 const router = createBrowserRouter([
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path: "/signup",
                 Component: Signup
+            },
+            {
+                path: "/my-bookings",
+                Component: MyBookings
             }
         ]
     }

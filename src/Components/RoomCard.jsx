@@ -3,7 +3,7 @@ import { FaLocationArrow, FaStar } from 'react-icons/fa';
 import { CiLocationOn } from "react-icons/ci";
 
 const RoomCard = ({ room }) => {
-    const { _id, name, image, roomRating, hotelLocation, type, pricePerNight } = room
+    const { _id, name, image, roomRating, hotelLocation,  pricePerNight } = room
     return (
         <div className="card   w-80 bg-base-200  shadow-sm">
             <figure>
