@@ -3,10 +3,36 @@ import Logo from "../assets/logo.jpg"
 import { Link, NavLink } from 'react-router';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import UserContext from '../Authentication/UserContext';
+import { toast, ToastContainer } from 'react-toastify';
+import Swal from 'sweetalert2';
 //import { GiHamburgerMenu } from "react-icons/gi";
 const Navbar = () => {
-  const { User, loading } = use(UserContext);
-  console.log(User)
+  const { User, UserSignout, setUser } = use(UserContext);
+
+  const handleUserLogout = () => {
+    UserSignout()
+      .then(() => {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to use some features!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, logout!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setUser('')
+            Swal.fire({
+              title: "Log Out!",
+              text: "Your account has been logout.",
+              icon: "success"
+            });
+          }
+        });
+      })
+  }
+
   return (
     <div className="navbar  flex justify-between items-center px-3 md:px-8  lg:px-16 bg-base-200  shadow-sm">
       <div className="flex justify-center items-center gap-2 ">
@@ -40,10 +66,9 @@ const Navbar = () => {
                     <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
                   </div>
                 </div>
-                <button className='btn text-white btn-error rounded-full px-8 btn-sm'>Logout</button>
+                <button onClick={handleUserLogout} className='btn text-white btn-error rounded-full px-8 btn-sm'>Logout</button>
               </div>
               :
-
               <li><Link to={"/login"} className='btn btn-sm px-8 rounded-full btn-primary'>Sign In</Link></li>
           }
         </ul>

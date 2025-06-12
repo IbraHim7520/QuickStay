@@ -1,11 +1,16 @@
 import React from 'react';
 import { CiLocationOn } from 'react-icons/ci';
 import { FaStar } from 'react-icons/fa';
+import { useNavigate } from 'react-router';
 
 const RoomCardList = ({ room }) => {
+    const navigate = useNavigate()
     const { _id, name, image, roomRating, hotelLocation, pricePerNight } = room
+    const handleSeeDetails = (id) =>{
+        navigate(`/rooms_details/${id}`)
+    }
     return (
-         <div className="card w-full h-60 card-side bg-base-300 shadow-sm">
+         <div onClick={()=> handleSeeDetails(_id)} className="card w-full hover:cursor-pointer hover:bg-gray-200 h-60 card-side bg-base-300 shadow-sm">
             <figure className="w-2/5 min-w-[150px]">
                 <img
                     className='h-full w-full object-cover'

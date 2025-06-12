@@ -3,51 +3,56 @@ import { Link } from 'react-router';
 import G9 from "../assets/register.jpg"
 import UserContext from '../Authentication/UserContext';
 import { toast, ToastContainer } from 'react-toastify';
+import { updateCurrentUser } from 'firebase/auth';
+import auth from '../Authentication/firebase.config';
 const Signup = () => {
-    const {GoogleSignIn , UserSignUp} = use(UserContext)
-    const [msge , setMsge] = useState('');
-    const HandleUserResister = (e) =>{
-            e.preventDefault();
-            const name = e.target.name.value;
-            const image = e.target.image.value;
-            const pass = e.target.pass.value;
-            const ConPass = e.target.con_pass.value;
-            const email = e.target.email.value;
-            const PassRegX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
-            if (PassRegX.test(pass)){
-                    if(pass===ConPass){
-                        UserSignUp(email, pass)
-                        .then((res)=>{
-                            if(res){
+    const { GoogleSignIn, UserSignUp } = use(UserContext)
+    const [msge, setMsge] = useState('');
+    const HandleUserResister = (e) => {
+        e.preventDefault();
+        const name = e.target.name.value;
+        const image = e.target.image.value;
+        const pass = e.target.pass.value;
+        const ConPass = e.target.con_pass.value;
+        const email = e.target.email.value;
+        const PassRegX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        if (PassRegX.test(pass)) {
+            if (pass === ConPass) {
+                UserSignUp(email, pass)
+                    .then((res) => {
+                        updateCurrentUser(auth.currentUser, {
+                            displayName: name,
+                            photoURL: image
+                        }).then(() => {
                                 toast("Registerd Successfull!")
                                 e.target.reset();
-                            }else{
-                                toast("Something went wrong!")
-                            }
+                        }).catch((err)=>{
+                             toast("Something went wrong!")
                         })
-                    }
-            }else{
-                setMsge('Password is too weak!')
+                    })
             }
+        } else {
+            setMsge('Password is too weak!')
+        }
     }
     const handleGoogleSignup = () => {
         GoogleSignIn()
-        .then(res=>{
-            console.log(res.user);
-        })
+            .then(res => {
+                toast("Account created successfully!")
+            })
     }
     return (
-               <section className="p-6 dark:bg-gray-100 dark:text-gray-800">
-                <ToastContainer></ToastContainer>
+        <section className="p-6 dark:bg-gray-100 dark:text-gray-800">
+            <ToastContainer></ToastContainer>
             <div className="container grid gap-6 mx-auto text-center lg:grid-cols-2 xl:grid-cols-5">
                 <div className="w-full px-6 py-16 rounded-md sm:px-12 md:px-16 xl:col-span-2 dark:bg-gray-50">
                     <h1 className="text-5xl font-extrabold ">Register</h1>
-                    <form onSubmit={(e)=>HandleUserResister(e)} action="" className="self-stretch mt-8 space-y-3">
-                            <input name='name' id="name" type="text" required placeholder="username" className="w-full input rounded-md " />
-                            <input name='image' id="name" type="text" placeholder="profile image" className="w-full input rounded-md" />
-                            <input name='email' id="name" type="email" required placeholder="example@mail.com" className="w-full input rounded-md " />
-                            <input name='pass' id="pass" type="password" placeholder="password" className="w-full input rounded-md" />
-                            <input name='con_pass' id="lastname" type="password" placeholder="confirm password" className="w-full input rounded-md" />
+                    <form onSubmit={(e) => HandleUserResister(e)} action="" className="self-stretch mt-8 space-y-3">
+                        <input name='name' id="name" type="text" required placeholder="username" className="w-full input rounded-md " />
+                        <input name='image' id="name" type="text" placeholder="profile image" className="w-full input rounded-md" />
+                        <input name='email' id="name" type="email" required placeholder="example@mail.com" className="w-full input rounded-md " />
+                        <input name='pass' id="pass" type="password" placeholder="password" className="w-full input rounded-md" />
+                        <input name='con_pass' id="lastname" type="password" placeholder="confirm password" className="w-full input rounded-md" />
                         <button type="submit" className="w-full btn btn-outline btn-primary">Register</button>
                     </form>
                     <div className='mt-5 space-y-3'>
