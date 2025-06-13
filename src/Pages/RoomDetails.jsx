@@ -4,8 +4,10 @@ import { CiLocationOn } from 'react-icons/ci';
 import Testimonial from '../Components/Testimonial';
 import ReviewCard from '../Components/ReviewCard';
 import UserContext from '../Authentication/UserContext';
+import moment from 'moment/moment';
 const RoomDetails = () => {
-    const {User} = use(UserContext)
+    const { User } = use(UserContext)
+    console.log(User?.email)
     const data = useLoaderData();
     const navigate = useNavigate()
     const [roomData, setRoomData] = useState(data);
@@ -13,18 +15,77 @@ const RoomDetails = () => {
         roomNumber, floor, name, description, pricePerNight, capacity,
         type, bedType, cooling, balconyAvailable, balconyView, features,
         amenities, image, available, hotelName, hotelLocation, roomRating,
-        defaultDate, reviews
+        defaultDate, reviews, BookedBy
     } = roomData
-    const handleRoomBooking = () =>{
-      console.log(User)
-      if(User){
-        alert("Clicked")
-      }else{
-        navigate('/login')
-      }
+    const [Book , setBook] = useState( BookedBy.length <= 0 ? true : false)
+    const handleRoomBooking = () => {
+        const modal = document.getElementById('my_modal');
+        modal.showModal()
+    }
+    const handlehotelBooking = (e)=>{
+        e.preventDefault()
+        const date = e.target.date.value;
+        const time = moment(date , "YYYYMMDD").fromNow()
+        if( time.includes('ago') ) {
+            alert("You cannot Book on previous date")
+        }else{
+            fetch( `http://localhost:5000/room_booking/${_id}`, {
+                method: "PATCH",
+                headers : {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify( {
+                    email : User?.email,
+                    date : date
+                } )
+            }).then( res=> res.json())
+            .then(data=> {
+                if(data){
+                    setBook(false)
+                    document.getElementById('my_modal').close()
+                }
+            })
+        }
     }
     return (
         <div>
+            {/* Open the modal using document.getElementById('ID').showModal() method */}
+            <dialog id="my_modal" className="modal modal-bottom sm:modal-middle">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Confirmation</h3>
+                    <form onSubmit={(e)=> handlehotelBooking(e)} className='space-y-3'>
+                        <div className='w-full'>
+                            <legend className='text-sm'>Name:</legend>
+                            <input value={name} className='input  w-full'></input>
+                        </div>
+                        <div className='flex justify-center gap-2 items-center'>
+                            <div className='w-full'>
+                                <legend className='text-sm'>Hotel Location:</legend>
+                                <input value={hotelLocation} className='input  w-full'></input>
+                            </div>
+                            <div className='w-full'>
+                                <legend className='text-sm'>Room Location:</legend>
+                                <input value={roomNumber} className='input  w-full'></input>
+                            </div>
+                        </div>
+                        <div className='w-full'>
+                            <legend className='text-sm'>Price:</legend>
+                            <input value={pricePerNight} className='input  w-full'></input>
+                        </div>
+                        <div className='w-full'>
+                            <legend className='text-sm'>Select Booking Date:</legend>
+                            <input name='date' required type='date' className='input  w-full'></input>
+                        </div>
+
+                        <button type='submit' className='btn btn-primary w-full'>Book</button>
+                    </form>
+                    <div className="modal-action">
+                        <form method="dialog">
+                            <button className="btn btn-error">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
             <div className="container p-2 md:p-3 lg:p-5 w-full mx-auto">
                 <div className='flex flex-col items-start pb-8 pt-5  justify-center'>
                     <div className='flex items-center justify-center gap-2 '>
@@ -69,7 +130,11 @@ const RoomDetails = () => {
 
 
                 <div className='bg-base-300 shadow-md mt-12 p-5  rounded-xl  shadow-gray-300'>
-                  <button onClick={handleRoomBooking} className='btn w-full btn-primary btn-outline'>Book Now</button>
+                    <button onClick={handleRoomBooking} className={Book ? 'btn btn-primary btn-outline w-full' : 'btn btn-disabled w-full' }>
+                        {
+                            Book ?  'Book Now': 'Booked' 
+                        }
+                    </button>
                 </div>
 
                 <div className='mt-12 container w-full'>
@@ -94,23 +159,23 @@ const RoomDetails = () => {
                 </hr>
 
                 <div className="flex w-full gap-2 items-center justify-center flex-col md:flex-row">
-                 <div className='w-full'>
-                    <h1 className='text-xl font-bold text-gray-500 '>Total Reviews: {reviews.length}</h1>
-                       <div className="card w-full items-center justify-center gap-2 rounded-box grid p-5 space-y-2 lg:space-y-0 grow place-items-center">
-                    {
-                        reviews.map( review =><ReviewCard  review={review}></ReviewCard>)
-                    }
+                    <div className='w-full'>
+                        <h1 className='text-xl font-bold text-gray-500 '>Total Reviews: {reviews.length}</h1>
+                        <div className="card w-full items-center justify-center gap-2 rounded-box grid p-5 space-y-2 lg:space-y-0 grow place-items-center">
+                            {
+                                reviews.map(review => <ReviewCard review={review}></ReviewCard>)
+                            }
+                        </div>
                     </div>
-                 </div>
-                    
+
                     <div className="card rounded-box grid w-full space-y-2 grow place-items-center">
                         <h1 className='text-xl font-bold'>Post Your Review:</h1>
-                          <div className="rating mt-0 rating-lg">
-                        <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="1 stat"  />
-                        <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="2 star" />
-                        <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="3 star" />
-                        <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="4 star"  />
-                        <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="5 star"  />
+                        <div className="rating mt-0 rating-lg">
+                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="1 stat" />
+                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="2 star" />
+                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="3 star" />
+                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="4 star" />
+                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="5 star" />
                         </div>
                         <textarea placeholder="Write your review here" className="textarea textarea-primary"></textarea>
                         <button className='btn btn-primary'>Post Review</button>

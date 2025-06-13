@@ -1,6 +1,6 @@
 import React, { use } from 'react';
 import Logo from "../assets/logo.jpg"
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink, useLocation } from 'react-router';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import UserContext from '../Authentication/UserContext';
 import { toast, ToastContainer } from 'react-toastify';
@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 //import { GiHamburgerMenu } from "react-icons/gi";
 const Navbar = () => {
   const { User, UserSignout, setUser } = use(UserContext);
-
+  console.log(useLocation())
   const handleUserLogout = () => {
     UserSignout()
       .then(() => {
@@ -39,7 +39,7 @@ const Navbar = () => {
         <div className="dropdown  block md:hidden">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
-          </div>
+          </div>npm run dev
           <ul
             tabIndex={0}
             className=" dropdown-content space-y-3 bg-base-300 rounded-box shadow-md z-1 mt-3 w-52 p-2 shadow">
