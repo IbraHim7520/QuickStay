@@ -56,7 +56,9 @@ const Navbar = () => {
         <ul className='flex justify-center items-center gap-3'>
           <NavLink to={'/'} className={({ isActive }) => isActive ? "text-blue-500" : "text-black"} >Home</NavLink>
           <NavLink to={'/rooms'} className={({ isActive }) => isActive ? "text-blue-500" : "text-black"} >Rooms</NavLink>
-          <NavLink to={User ? '/my-bookings' : '/login'} className={({ isActive }) => isActive ? "text-blue-500" : "text-black"} >My Bookings</NavLink>
+          {
+            User && <NavLink to={'/my-bookings'} className={({isActive})=> isActive ? 'text-blue-500' : 'text-black'} >My Bookings</NavLink>
+          }
           {
             User ?
               <div className='flex justify-center itemx-center gap-2'>

@@ -1,15 +1,17 @@
 import React from 'react';
 import Navbar from "../Components/Navbar"
-import { Outlet } from 'react-router';
+import { Outlet, useLocation } from 'react-router';
 import Footer from '../Components/Footer';
 const Root = () => {
+    const path = useLocation();
+    console.log(path.pathname)
     return (
         <div>
-            <Navbar></Navbar>
-          <div className=''>
-              <Outlet></Outlet>
-          </div>
-            <Footer></Footer>
+                        <Navbar></Navbar>
+                        <div>
+                            <Outlet></Outlet>
+                        </div>
+                        <Footer></Footer>
         </div>
     );
 };

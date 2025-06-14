@@ -6,6 +6,7 @@ import Login from "../src/Pages/Login";
 import MyBookings from "../src/Pages/MyBookings"
 import Signup from "../src/Pages/Signup";
 import RoomDetails from "../src/Pages/RoomDetails";
+import Error from "../src/Pages/Error";
 const router = createBrowserRouter([
 
     {
@@ -37,7 +38,12 @@ const router = createBrowserRouter([
                 path: "/rooms_details/:id",
                 loader: ({params})=> fetch(`http://localhost:5000/get_oneroom/${params.id}`),
                 Component: RoomDetails
+            },
+            {
+                path: '*',
+                element: <Error></Error>
             }
+
         ]
     }
 ])

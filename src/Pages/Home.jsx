@@ -5,6 +5,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { Link } from 'react-router';
 import Testimonial from '../Components/Testimonial';
 import OfferCard from "../Components/OfferCard"
+import room_promotion from "../assets/anim/room_promotion.jpg"
 const Home = () => {
     const [roomData, setRoomData] = useState([]);
     const [loading, setLoading] = useState(true)
@@ -27,10 +28,25 @@ const Home = () => {
             .then(data => {
                 setTestimonials(data);
             })
+
+        document.getElementById('my_modal_3').show()
     }, [])
     return (
         <div>
             <Banner></Banner>
+            <dialog id="my_modal_3" className="modal">
+                <div className="modal-box">
+                    <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <div className='w-fit h-fit'>
+                        <img 
+                        className='w-fit h-fit'
+                        src={room_promotion}></img>
+                    </div>
+                </div>
+            </dialog>
             <section className='mt-12 px-3 md:px-8  lg:px-16'>
                 <h1 className='text-center mb-4 text-3xl font-semibold'>Featured Destination</h1>
                 <p className='text-center'>Discover our handpicked selection of exceptional properties around the world, offering<br></br>unparalleled luxury and unforgettable experiences.</p>
