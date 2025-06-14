@@ -4,7 +4,6 @@ import { Outlet, useLocation } from 'react-router';
 import Footer from '../Components/Footer';
 const Root = () => {
     const path = useLocation();
-    console.log(path.pathname)
     return (
         <div>
                         <Navbar></Navbar>

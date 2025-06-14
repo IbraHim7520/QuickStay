@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaListAlt } from "react-icons/fa";
+import { FaFilter, FaListAlt } from "react-icons/fa";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import RoomCard from '../Components/RoomCard';
 import RoomCardList from "../Components/RoomCardList"
@@ -29,12 +29,31 @@ const Rooms = () => {
         setListClick(false)
         setCardClick(true)
     }
+    const handleUserFilter = (e) =>{
+        e.preventDefault()
+        const filter = e.target.value;
+        const update_filter = filter.toLowerCase(filter.replaceAll(" ", "_"))
+       fetch(`http://localhost:5000/filtered_data/${update_filter}`)
+       .then(promis=> promis.json())
+       .then(data => {
+        setRoomData(data)
+       })
+    }
     return (
         <div>
             <div className=''>
                 <div className='flex px-15 mt-5 justify-between items-center'>
                     <h1 className='text-2xl font-semibold '>Our Rooms</h1>
                     <div className='flex justify-center gap-5 items-center'>
+                        <form className='flex justify-center items-center  text-sm'>
+                            <select onChange={(e)=>handleUserFilter(e)} defaultValue="Filter" className="select text-xs select-ghost">
+                                <option disabled value="Filter">Filter</option>
+                                <option>Price High to Low</option>
+                                <option>Price Low to High</option>
+                                <option>Rating High to Low</option>
+                                <option>Ratng Low to High</option>
+                            </select>
+                        </form>
                         <FaListAlt onClick={ClickViewList} size={20} className={Listclick ? 'text-blue-500 cursor-pointer' : ' cursor-pointer'}></FaListAlt>
                         <BsFillGrid3X3GapFill onClick={ClickViewCard} size={20} className={Cardclick ? 'text-blue-500 cursor-pointer' : ' cursor-pointer'}></BsFillGrid3X3GapFill>
                     </div>
@@ -58,7 +77,7 @@ const Rooms = () => {
                                         :
                                         <div className='space-y-3 flex flex-col start'>
                                             {
-                                                roomData.map( room=> <RoomCardList room={room} key={room._id} ></RoomCardList> )
+                                                roomData.map(room => <RoomCardList room={room} key={room._id} ></RoomCardList>)
                                             }
                                         </div>
                                 }
