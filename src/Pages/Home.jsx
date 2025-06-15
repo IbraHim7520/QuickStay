@@ -24,7 +24,8 @@ const Home = () => {
                 }
             })
         fetch('hoteloffer.json').then(res => res.json()).then(data => setOffer(data))
-        fetch('testimonials.json')
+
+        fetch('http://localhost:5000/get-top-reviews')
             .then(res => res.json())
             .then(data => {
                 setTestimonials(data);

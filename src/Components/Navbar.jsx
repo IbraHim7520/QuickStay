@@ -41,7 +41,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className=" dropdown-content flex flex-col space-y-3 bg-base-300 rounded-box shadow-md z-1 mt-3 w-52 p-2 shadow">
+            className=" dropdown-content font-semibold flex flex-col space-y-3 bg-base-300 rounded-box shadow-md z-1 mt-3 w-52 p-2 shadow">
             <NavLink to={'/'} className={({ isActive }) => isActive ? "text-blue-500" : "text-black"} >Home</NavLink>
             <NavLink to={'/rooms'} className={({ isActive }) => isActive ? "text-blue-500" : "text-black"} >Rooms</NavLink>
             <li>My Bookings</li>
@@ -53,7 +53,7 @@ const Navbar = () => {
       </div>
 
       <div className="hidden md:block">
-        <ul className='flex justify-center items-center gap-3'>
+        <ul className='flex justify-center font-semibold items-center gap-3'>
           <NavLink to={'/'} className={({ isActive }) => isActive ? "text-blue-500" : "text-black"} >Home</NavLink>
           <NavLink to={'/rooms'} className={({ isActive }) => isActive ? "text-blue-500" : "text-black"} >Rooms</NavLink>
           {
