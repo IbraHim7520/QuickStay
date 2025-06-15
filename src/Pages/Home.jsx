@@ -7,6 +7,7 @@ import Testimonial from '../Components/Testimonial';
 import OfferCard from "../Components/OfferCard"
 import room_promotion from "../assets/anim/room_promotion.jpg"
 import HotelMap from '../Components/HotelMap';
+
 const Home = () => {
     const [roomData, setRoomData] = useState([]);
     const [loading, setLoading] = useState(true)

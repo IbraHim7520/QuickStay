@@ -5,15 +5,21 @@ import moment from 'moment';
 import toast, { Toaster } from 'react-hot-toast';
 import Swal from 'sweetalert2';
 import noData from "../assets/anim/noData.jpg"
+import axios from 'axios';
 const MyBookings = () => {
     const { User } = useContext(UserContext);
     const [BookedRoom, setBookedRoom] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        fetch(`http://localhost:5000/get_booked_room/${User?.email}`)
-            .then(res => res.json())
+        const token = localStorage.getItem("token");
+        axios(`http://localhost:5000/get_booked_room/${User?.email}`, {
+            headers: {
+            Authorization:`Bearer ${token}`
+            }
+        })
+    
             .then(data => {
-                setBookedRoom(data);
+                setBookedRoom(data?.data);
                 setLoading(false)
             })
 

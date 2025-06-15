@@ -1,6 +1,6 @@
 import React from 'react';
 import { flushSync } from 'react-dom';
-
+import noImg from "../assets/anim/noImg.jpg"
 const Testimonial = ({ testimonial }) => {
     const { User, Rating, Review } = testimonial
     return (
@@ -8,7 +8,7 @@ const Testimonial = ({ testimonial }) => {
             <div className='flex gap-3 items-center'>
                 <div className="avatar">
                     <div className="ring-primary ring-offset-base-100 w-5 rounded-full ring-2 ring-offset-2">
-                        <img className='' src={"image"} />
+                        <img className='' src={noImg} />
                     </div>
                 </div>
                 <div>
@@ -21,7 +21,7 @@ const Testimonial = ({ testimonial }) => {
                         <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="4 star" checked={Rating==4 ? true: false} />
                         <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="5 star" checked={Rating==5 ?true : false} />
                     </div>
-                     <p>({Rating})</p>
+                     <p>({Rating ? Rating : 0})</p>
                 </div>
                     
                 </div>
