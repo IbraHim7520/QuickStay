@@ -112,7 +112,7 @@ const RoomDetails = () => {
                 <div className="modal-box space-y-3">
                     <h3 className="font-bold text-center text-lg">Give Review</h3>
                     <form onSubmit={(e)=>handleSubmitRating(e, _id)} className='flex flex-col justify-center items-center space-y-2'>
-                        <input name='username' className='input w-full' value={User?.displayName} ></input>
+                        <input name='username' className='input w-full' value={User?.displayName || "Anonymous"} ></input>
                         <div className="rating mt-0 rating-lg">
                             <input  value={'1'} onChange={(e)=> setRating(e.target.value)}   type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="1 star" />
                             <input value={'2'} onChange={(e)=> setRating(e.target.value)}   type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="2 star" />

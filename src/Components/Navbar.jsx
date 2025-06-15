@@ -57,17 +57,14 @@ const Navbar = () => {
           <NavLink to={'/'} className={({ isActive }) => isActive ? "text-blue-500" : "text-black"} >Home</NavLink>
           <NavLink to={'/rooms'} className={({ isActive }) => isActive ? "text-blue-500" : "text-black"} >Rooms</NavLink>
           {
-            User && <NavLink to={'/my-bookings'} className={({isActive})=> isActive ? 'text-blue-500' : 'text-black'} >My Bookings</NavLink>
+            User && <NavLink to={'/my-bookings'} className={({ isActive }) => isActive ? 'text-blue-500' : 'text-black'} >My Bookings</NavLink>
           }
           {
             User ?
               <div className='flex justify-center itemx-center gap-2'>
                 <div className="avatar">
-                  <div className="w-8  rounded-full" >
-
-                    <div className="tooltip" data-tip="hello">
-                      <img src={User?.photoURL} />
-                    </div>
+                  <div className="ring-primary ring-offset-base-100 w-8 rounded-full ring-2 ring-offset-2">
+                    <img src={User?.photoURL} />
                   </div>
                 </div>
                 <button onClick={handleUserLogout} className='btn text-white btn-error rounded-full px-8 btn-sm'>Logout</button>

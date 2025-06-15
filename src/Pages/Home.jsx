@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import Testimonial from '../Components/Testimonial';
 import OfferCard from "../Components/OfferCard"
 import room_promotion from "../assets/anim/room_promotion.jpg"
+import HotelMap from '../Components/HotelMap';
 const Home = () => {
     const [roomData, setRoomData] = useState([]);
     const [loading, setLoading] = useState(true)
@@ -100,6 +101,12 @@ const Home = () => {
                         testimonials.map(testimonial => <Testimonial testimonial={testimonial}></Testimonial>)
                     }
                 </div>
+            </section>
+
+//
+            <section className='lg:mt-24 mt-12  px-3 md:px-8  lg:px-16'>
+                <h1 className='text-3xl text-center font-semibold'>Our Location</h1>
+                <HotelMap></HotelMap>
             </section>
         </div>
     );

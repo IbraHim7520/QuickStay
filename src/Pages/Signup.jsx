@@ -2,7 +2,7 @@ import React, { use, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import G9 from "../assets/register.jpg"
 import UserContext from '../Authentication/UserContext';
-import { updateCurrentUser } from 'firebase/auth';
+import {  updateProfile } from 'firebase/auth';
 import auth from '../Authentication/firebase.config';
 import toast, { ToastBar, Toaster } from 'react-hot-toast';
 import Swal from 'sweetalert2';
@@ -22,7 +22,7 @@ const Signup = () => {
             if (pass === ConPass) {
                 UserSignUp(email, pass)
                     .then((res) => {
-                        updateCurrentUser(auth.currentUser, {
+                       updateProfile(auth.currentUser, {
                             displayName: name,
                             photoURL: image
                         }).then(() => {
@@ -62,11 +62,11 @@ const Signup = () => {
                 <div className="w-full px-6 py-16 rounded-md sm:px-12 md:px-16 xl:col-span-2 dark:bg-gray-50">
                     <h1 className="text-5xl font-extrabold ">Register</h1>
                     <form onSubmit={(e) => HandleUserResister(e)} action="" className="self-stretch mt-8 space-y-3">
-                        <input name='name' id="name" type="text" required placeholder="username" className="w-full input rounded-md " />
-                        <input name='image' id="name" type="text" placeholder="profile image" className="w-full input rounded-md" />
-                        <input name='email' id="name" type="email" required placeholder="example@mail.com" className="w-full input rounded-md " />
-                        <input name='pass' id="pass" type="password" placeholder="password" className="w-full input rounded-md" />
-                        <input name='con_pass' id="lastname" type="password" placeholder="confirm password" className="w-full input rounded-md" />
+                        <input name='name'  type="text" required placeholder="username" className="w-full input rounded-md " />
+                        <input name='image'  type="text" placeholder="profile image" className="w-full input rounded-md" />
+                        <input name='email'  type="email" required placeholder="example@mail.com" className="w-full input rounded-md " />
+                        <input name='pass'  type="password" placeholder="password" className="w-full input rounded-md" />
+                        <input name='con_pass'  type="password" placeholder="confirm password" className="w-full input rounded-md" />
                         <button type="submit" className="w-full btn btn-outline btn-primary">Register</button>
                     </form>
                     <div className='mt-5 space-y-3'>

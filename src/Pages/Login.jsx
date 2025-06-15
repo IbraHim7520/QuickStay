@@ -26,7 +26,7 @@ const Login = () => {
     const handleUserLogin = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
-        const pass = e.target.pass.value;
+        const pass = e.target.password.value;
         UserLogin(email, pass)
             .then(res => {
                 if (res.user) {
