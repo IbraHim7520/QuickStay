@@ -2,13 +2,12 @@ import moment from 'moment';
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { CiLocationOn } from "react-icons/ci";
-import { data } from 'react-router';
-const BookedRooms = ({ room , handleCancelBooking}) => {
+import { data, Link, useNavigate } from 'react-router';
+const BookedRooms = ({ room , handleCancelBooking, roomID}) => {
     const { _id, image, name, price, Date, address, hotelName } = room
 
-
     return (
-        <div className="card card-side bg-base-100 shadow-sm">
+        <div className="card card-side bg-base-200 shadow-sm">
             <Toaster></Toaster>
             <figure>
                 <img
@@ -29,10 +28,13 @@ const BookedRooms = ({ room , handleCancelBooking}) => {
                     </div>
                     <hr className='text-gray-500 mt-2'></hr>
                 </div>
-                <div className='w-full justify-end flex flex-col md:flex-row gap-2  items-center'>
-                    <h1 className='font-semibold text-gray-700'>${price}/night</h1>
+                <div className='w-full justify-between flex flex-col md:flex-row gap-2  items-center'>
+                    <h1 className='font-semibold text-xl text-gray-700'>${price}/night</h1>
                     <div className="card-actions justify-end">
-                        <button onClick={() => handleCancelBooking(_id, Date)} className="btn btn-primary btn-sm btn-outline">Cancel Booking</button>
+                        <Link to={`/rooms_details/${roomID}`} className='btn w-full md:w-fit btn-secedary btn-sm btn-outline'>Post Review</Link>
+                        <button className='btn w-full md:w-fit btn-sm btn-primary btn-outline'>Update Date</button>
+                        <button onClick={() => handleCancelBooking(_id, Date)} className="btn w-full md:w-fit btn-error btn-sm btn-outline">Cancel Booking</button>
+                        
                     </div>
                 </div>
             </div>

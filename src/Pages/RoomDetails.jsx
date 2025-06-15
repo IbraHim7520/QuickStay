@@ -6,10 +6,11 @@ import ReviewCard from '../Components/ReviewCard';
 import UserContext from '../Authentication/UserContext';
 import moment from 'moment/moment';
 import toast, { Toaster } from 'react-hot-toast';
-
+import norating from "../assets/anim/noRating.jpg"
 
 const RoomDetails = () => {
     const { User } = useContext(UserContext);
+    const [rating , setRating] = useState(null)
     const data = useLoaderData();
     const navigate = useNavigate();
     const [roomData, setRoomData] = useState(data);
@@ -17,16 +18,61 @@ const RoomDetails = () => {
     const {
         _id, roomNumber, floor, name, description, pricePerNight, capacity,
         type, bedType, cooling, balconyAvailable, balconyView, features,
-        amenities, image, hotelName, hotelLocation, roomRating,
-        Booked, reviews, 
+        amenities, image, hotelName, hotelLocation, roomRating, BookedBy,
+        Booked, reviews,
     } = roomData;
 
     const [Book, setBook] = useState(Booked);
+    const [userreviews, setReviews] = useState(reviews)
+
+    const handlePostReview = () => {
+        if (BookedBy.includes(User?.email)) {
+            // alert(User?.email);
+            document.getElementById("reviewModal").show()
+            return
+        }
+        toast.error("You must booked room first")
+    }
 
     const handleRoomBooking = () => {
-        const modal = document.getElementById('my_modal');
-        modal.showModal();
+        if (User) {
+            const modal = document.getElementById('my_modal');
+            modal.showModal();
+            return
+        }
+        navigate('/login');
     };
+    const handleSubmitRating = (e, id)=>{
+        e.preventDefault()
+        const review = e.target.review.value;
+        const username = e.target.username.value;
+      //  const time = new Date();
+        const Review = {
+            RoomID : _id,
+            User : username,
+            Review : review,
+            Rating: rating,
+        }
+        fetch('http://localhost:5000/add-reviews', {
+            method:"PATCH",
+            headers: {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify(Review)
+
+        }).then(res=> res.json())
+        .then(data => {
+            if(data.acknowledged){
+                toast.success("Review Added successfully")
+                e.target.reset();
+                document.getElementById('my_modal').close()
+            }else{
+                toast.error("Unable to post review!");
+                  e.target.reset();
+                document.getElementById('my_modal').close()
+            }
+        })
+    }
 
     const handlehotelBooking = (e) => {
         e.preventDefault();
@@ -47,19 +93,41 @@ const RoomDetails = () => {
                     BookedBy: User?.email,
                 })
             }).then(res => res.json())
-            .then(data => {
-                setBook(true)
-                toast.success('Room has been Booked!')
-                document.getElementById('my_modal').close()
-                console.log(data)
-            } )
+                .then(data => {
+                    setBook(true)
+                    toast.success('Room has been Booked!')
+                    document.getElementById('my_modal').close()
+                    console.log(data)
+                })
         }
     };
 
     return (
         <div>
             <Toaster />
-
+            <dialog id="reviewModal" className="modal modal-bottom sm:modal-middle">
+                <div className="modal-box space-y-3">
+                    <h3 className="font-bold text-center text-lg">Give Review</h3>
+                    <form onSubmit={(e)=>handleSubmitRating(e, _id)} className='flex flex-col justify-center items-center space-y-2'>
+                        <input name='username' className='input w-full' value={User?.displayName} ></input>
+                        <div className="rating mt-0 rating-lg">
+                            <input  value={'1'} onChange={(e)=> setRating(e.target.value)}   type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="1 star" />
+                            <input value={'2'} onChange={(e)=> setRating(e.target.value)}   type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="2 star" />
+                            <input value={'3'} onChange={(e)=> setRating(e.target.value)}   type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="3 star" />
+                            <input value={'4'} onChange={(e)=> setRating(e.target.value)}   type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="4 star" />
+                            <input value={'5'} onChange={(e)=> setRating(e.target.value)}  type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="5 star" />
+                        </div>
+                        <textarea name='review' placeholder="Write your review here" className="textarea textarea-primary" />
+                        <button type='submit' className='w-full btn btn-sm btn-primary '>Submit</button>
+                    </form>
+                    <div className="modal-action">
+                        <form method="dialog">
+                            {/* if there is a button in form, it will close the modal */}
+                            <button className="btn">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
             <dialog id="my_modal" className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">Confirmation</h3>
@@ -170,31 +238,26 @@ const RoomDetails = () => {
                 </div>
                 <hr className='my-10 text-gray-300' />
 
-                <div className="flex w-full gap-2 items-center justify-center flex-col md:flex-row">
-                    <div className='w-full'>
-                        <h1 className='text-xl font-bold text-gray-500'>Total Reviews: {reviews.length}</h1>
-                        <div className="card w-full items-center justify-center gap-2 rounded-box grid p-5 space-y-2 lg:space-y-0 grow place-items-center">
+                <p className='text-center  md:text-2xl font-bold'>Reviews</p>                
+                <div className='flex w-full justify-center items-center'>
+                    <button onClick={handlePostReview} className='btn mt-2 btn-sm px-5 btn-primary'>Post Review</button>
+                </div>
+
+
+                {
+                    reviews.length == 0 ? 
+                    <div className='flex flex-col w-full items-center justify-center'>
+                            <img src={norating} className='w-24'></img>
+                    </div>
+                    :
+                    <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 space-y-1 justify-items-center items-center justify-center'>
                             {
-                                reviews.map((review, i) => (
-                                    <ReviewCard key={i} review={review} />
-                                ))
+                                reviews.map(review=> <ReviewCard review={review}  key={review.RoomID}></ReviewCard> )
                             }
-                        </div>
                     </div>
 
-                    <div className="card rounded-box grid w-full space-y-2 grow place-items-center">
-                        <h1 className='text-xl font-bold'>Post Your Review:</h1>
-                        <div className="rating mt-0 rating-lg">
-                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="1 star" />
-                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="2 star" />
-                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="3 star" />
-                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="4 star" />
-                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" aria-label="5 star" />
-                        </div>
-                        <textarea placeholder="Write your review here" className="textarea textarea-primary" />
-                        <button className='btn btn-primary'>Post Review</button>
-                    </div>
-                </div>
+                }
+            
             </div>
         </div>
     );

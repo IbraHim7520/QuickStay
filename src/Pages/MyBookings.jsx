@@ -4,7 +4,7 @@ import BookedRooms from '../Components/BookedRooms';
 import moment from 'moment';
 import toast, { Toaster } from 'react-hot-toast';
 import Swal from 'sweetalert2';
-
+import noData from "../assets/anim/noData.jpg"
 const MyBookings = () => {
     const { User } = useContext(UserContext);
     const [BookedRoom, setBookedRoom] = useState([]);
@@ -26,9 +26,6 @@ const MyBookings = () => {
             toast.error("Sorry you can't cancel booking now");
 
         } else {
-
-
-
             Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -70,11 +67,16 @@ const MyBookings = () => {
                         </div>
                         :
                         <div className='px-6 md:px-12 mt-5'>
-                            <div className=' space-y-2'>
+                            {
+                                BookedRoom.length == 0 ? 
+                                <img src={noData} className='w-96 mx-auto'></img>
+                                :
+                                <div className=' space-y-2'>
                                 {
-                                    BookedRoom.map(room => <BookedRooms room={room} key={room._id} handleCancelBooking={handleCancelBooking} ></BookedRooms>)
+                                    BookedRoom.map(room => <BookedRooms room={room} roomID={room.RoomID} key={room._id} handleCancelBooking={handleCancelBooking} ></BookedRooms>)
                                 }
                             </div>
+                            }
                         </div>
 
                 }

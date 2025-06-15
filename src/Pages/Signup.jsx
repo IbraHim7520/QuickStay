@@ -1,13 +1,15 @@
 import React, { use, useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import G9 from "../assets/register.jpg"
 import UserContext from '../Authentication/UserContext';
-import { toast, ToastContainer } from 'react-toastify';
 import { updateCurrentUser } from 'firebase/auth';
 import auth from '../Authentication/firebase.config';
+import toast, { ToastBar, Toaster } from 'react-hot-toast';
+import Swal from 'sweetalert2';
 const Signup = () => {
     const { GoogleSignIn, UserSignUp } = use(UserContext)
     const [msge, setMsge] = useState('');
+    const navigate = useNavigate()
     const HandleUserResister = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
@@ -24,10 +26,15 @@ const Signup = () => {
                             displayName: name,
                             photoURL: image
                         }).then(() => {
-                                toast("Registerd Successfull!")
-                                e.target.reset();
-                        }).catch((err)=>{
-                             toast("Something went wrong!")
+                            Swal.fire({
+                                title: "Signup Successful!",
+                                icon: "success",
+                                timer: 1500
+                            });
+                            navigate('/')
+                            e.target.reset();
+                        }).catch((err) => {
+                            toast.error("Something went rong!")
                         })
                     })
             }
@@ -38,12 +45,19 @@ const Signup = () => {
     const handleGoogleSignup = () => {
         GoogleSignIn()
             .then(res => {
-                toast("Account created successfully!")
+                Swal.fire({
+                    title: "Signup Successful!",
+                    icon: "success",
+                    timer: 1500
+                });
+                navigate('/')
+            }).catch(err => {
+                toast.error("Something went wrong!")
             })
     }
     return (
         <section className="p-6 dark:bg-gray-100 dark:text-gray-800">
-            <ToastContainer></ToastContainer>
+           <Toaster></Toaster>
             <div className="container grid gap-6 mx-auto text-center lg:grid-cols-2 xl:grid-cols-5">
                 <div className="w-full px-6 py-16 rounded-md sm:px-12 md:px-16 xl:col-span-2 dark:bg-gray-50">
                     <h1 className="text-5xl font-extrabold ">Register</h1>

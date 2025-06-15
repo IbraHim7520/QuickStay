@@ -1,42 +1,59 @@
 import React, { use } from 'react';
 import G9 from "../assets/g9.jpg"
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import UserContext from '../Authentication/UserContext';
-import { toast, ToastContainer } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
+import Swal from 'sweetalert2';
+
 const Login = () => {
-    const {GoogleSignIn , UserLogin} = use(UserContext)
-    const handleGoogleLogin = () =>{
+    const { GoogleSignIn, UserLogin } = use(UserContext)
+    const navigate = useNavigate();
+    const handleGoogleLogin = () => {
         GoogleSignIn()
-        .then(data =>{
-            if (data.user){
-                toast("Login Successful!")
-            }
-        })
+            .then(data => {
+                if (data.user) {
+                    Swal.fire({
+                        title: "Login Successful!",
+                        icon: "success",
+                        timer: 1500
+                    });
+                    navigate('/')
+                }
+            }).catch(err => {
+                toast.error("Something went wrong!")
+            })
     }
-    const handleUserLogin = (e) =>{
+    const handleUserLogin = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
         const pass = e.target.pass.value;
-        UserLogin(email , pass)
-        .then(res=> {
-            if(res.user){
-                toast("Login Successful!");
-                e.terget.reset()
-            }else{
-                toast("Invalid Credentials!")
-            }
-        })
+        UserLogin(email, pass)
+            .then(res => {
+                if (res.user) {
+                    Swal.fire({
+                        title: "Login Successful!",
+                        icon: "success",
+                        timer: 1500
+                    });
+                    navigate('/')
+                    e.terget.reset()
+                } else {
+                    toast.error("Something went wrong!")
+                }
+            }).catch(err=>{
+                toast.error("Something went wrong!");
+            })
     }
     return (
         <section className="p-6 dark:bg-gray-100 dark:text-gray-800">
-            <ToastContainer></ToastContainer>
+            <Toaster></Toaster>
             <div className="container justify-items-center grid gap-6 mx-auto text-center lg:grid-cols-2 xl:grid-cols-5">
                 <div className="w-full px-6 py-16 rounded-md sm:px-12 md:px-16 xl:col-span-2 dark:bg-gray-50">
                     <h1 className="text-5xl font-extrabold ">Welcome Back Dear</h1>
                     <p className="my-8">
                         <span className="font-medium dark:text-gray-900">Login</span> to your existing account and continue as before and see what you have been done yet
                     </p>
-                    <form onSubmit={(e)=>handleUserLogin(e)} action="" className="self-stretch space-y-3">
+                    <form onSubmit={(e) => handleUserLogin(e)} action="" className="self-stretch space-y-3">
                         <div>
                             <label htmlFor="name" className="text-sm sr-only">Email*</label>
                             <input name='email' type="text" placeholder="example@mail.com" className="w-full input rounded-md " />
