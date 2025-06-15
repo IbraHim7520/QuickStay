@@ -9,7 +9,6 @@ const MyBookings = () => {
     const { User } = useContext(UserContext);
     const [BookedRoom, setBookedRoom] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [totalBookingPrice, setBookingPrice] = useState(0);
     useEffect(() => {
         fetch(`http://localhost:5000/get_booked_room/${User?.email}`)
             .then(res => res.json())
@@ -19,6 +18,8 @@ const MyBookings = () => {
             })
 
     }, [User])
+
+
 
     const handleCancelBooking = (id, Date) => {
         const date_differ = moment(Date, "YYYYMMDD").fromNow()
@@ -68,14 +69,15 @@ const MyBookings = () => {
                         :
                         <div className='px-6 md:px-12 mt-5'>
                             {
-                                BookedRoom.length == 0 ? 
-                                <img src={noData} className='w-96 mx-auto'></img>
-                                :
-                                <div className=' space-y-2'>
-                                {
-                                    BookedRoom.map(room => <BookedRooms room={room} roomID={room.RoomID} key={room._id} handleCancelBooking={handleCancelBooking} ></BookedRooms>)
-                                }
-                            </div>
+                                BookedRoom.length == 0 ?
+                                    <img src={noData} className='w-96 mx-auto'></img>
+                                    :
+                                    <div className=' space-y-2'>
+                                        {
+                                            BookedRoom.map(room => <BookedRooms  room={room} roomID={room.RoomID} key={room._id} 
+                                            handleCancelBooking={handleCancelBooking} ></BookedRooms>)
+                                        }
+                                    </div>
                             }
                         </div>
 

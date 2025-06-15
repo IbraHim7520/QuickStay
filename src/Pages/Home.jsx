@@ -103,7 +103,7 @@ const Home = () => {
                 </div>
             </section>
 
-//
+
             <section className='lg:mt-24 mt-12  px-3 md:px-8  lg:px-16'>
                 <h1 className='text-3xl text-center font-semibold'>Our Location</h1>
                 <HotelMap></HotelMap>
