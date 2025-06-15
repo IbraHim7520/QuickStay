@@ -3,6 +3,7 @@ import UserContext from './UserContext';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import auth from './firebase.config';
 import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router';
 const Provider = ({children}) => {
     const [loading , setLoading] = useState(true)
     const [User , setUser] = useState(null);
@@ -13,7 +14,7 @@ const provider = new GoogleAuthProvider();
                 axios.post('http://localhost:5000/jwt', {
                     email: user?.email
                 }).then(res => {
-                    console.log(res.data.token)
+                   // console.log(res.data.token)
                     localStorage.setItem("token", res?.data?.token )
                 })
             }else{

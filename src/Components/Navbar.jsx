@@ -1,12 +1,14 @@
 import React, { use } from 'react';
 import Logo from "../assets/logo.jpg"
-import { Link, NavLink, useLocation } from 'react-router';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import UserContext from '../Authentication/UserContext';
 import { toast, ToastContainer } from 'react-toastify';
 import Swal from 'sweetalert2';
 //import { GiHamburgerMenu } from "react-icons/gi";
 const Navbar = () => {
+  const naviagte = useNavigate();
+  const path =  useLocation();
   const { User, UserSignout, setUser } = use(UserContext);
   const handleUserLogout = () => {
     UserSignout()
@@ -21,6 +23,9 @@ const Navbar = () => {
           confirmButtonText: "Yes, logout!"
         }).then((result) => {
           if (result.isConfirmed) {
+            if (path.pathname === "/my-bookings"){
+              naviagte("/")
+            }
             setUser('')
             Swal.fire({
               title: "Log Out!",

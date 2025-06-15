@@ -9,6 +9,8 @@ import axios from 'axios';
 const MyBookings = () => {
     const { User } = useContext(UserContext);
     const [BookedRoom, setBookedRoom] = useState([]);
+    const [selectedBookingId, setSelectedBookingId] = useState(null);
+      const [bookedRoomDate , setBookedRoomDate] = useState(Date);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -26,6 +28,37 @@ const MyBookings = () => {
     }, [User])
 
 
+
+    const handleUpdateBooking = (id) => {
+        setSelectedBookingId(id)
+        const modal = document.getElementById('updateModal');
+        modal.show();
+
+    }
+    const updateBookingDate = (e , bookedRoomID) => {
+        e.preventDefault()
+        const updatedDate = e.target.date.value;
+        fetch(`http://localhost:5000/update-booking/${bookedRoomID}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': "application/json"
+            },
+            body: JSON.stringify({ Date: updatedDate })
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data)
+                toast.success("Data Successfully Updated")
+                  setBookedRoomDate(prev => ({
+                ...prev,
+                [bookedRoomID]: updatedDate
+            }));
+                document.getElementById('updateModal').close()
+            }).catch(err=>{
+                toast.error("Something error!");
+            })
+        //alert(bookedRoomID)
+    }
+    
 
     const handleCancelBooking = (id, Date) => {
         const date_differ = moment(Date, "YYYYMMDD").fromNow()
@@ -65,6 +98,23 @@ const MyBookings = () => {
     return (
         <div className='w-full'>
             <Toaster></Toaster>
+            <dialog id="updateModal" className="modal modal-bottom sm:modal-middle">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Update Date</h3>
+                    <form onSubmit={(e) => updateBookingDate(e , selectedBookingId)} className='w-full space-y-2'>
+                        <div className='w-full'>
+                            <legend>New Date</legend>
+                            <input name='date' required className='input w-full' type='date' ></input>
+                        </div>
+                        <button type='submit' className='w-full btn btn-sm btn-success'>Update</button>
+                    </form>
+                    <div className="modal-action">
+                        <form method="dialog">
+                            <button className="btn">Close</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
             <div className='container p-5  w-full mx-auto'>
                 <h1 className='text-start px-6 md:px-12 text-3xl font-semibold'>My Bookings: {BookedRoom.length} Rooms</h1>
                 {
@@ -75,13 +125,18 @@ const MyBookings = () => {
                         :
                         <div className='px-6 md:px-12 mt-5'>
                             {
-                                BookedRoom.length == 0 ?
+                                BookedRoom?.length == 0 ?
                                     <img src={noData} className='w-96 mx-auto'></img>
                                     :
                                     <div className=' space-y-2'>
                                         {
-                                            BookedRoom.map(room => <BookedRooms  room={room} roomID={room.RoomID} key={room._id} 
-                                            handleCancelBooking={handleCancelBooking} ></BookedRooms>)
+                                            BookedRoom?.map(room => <BookedRooms 
+                                            handleUpdateBooking={handleUpdateBooking} 
+                                            bookedRoomDate={bookedRoomDate[room._id]}
+                                            room={room} roomID={room.RoomID} 
+                                            key={room._id} 
+                                            handleCancelBooking={handleCancelBooking} 
+                                            ></BookedRooms>)
                                         }
                                     </div>
                             }
