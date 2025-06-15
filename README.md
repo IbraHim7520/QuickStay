@@ -1,12 +1,29 @@
-# React + Vite
+A MERN Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Name: QuickStay**
+QuickStay is a website where visitors can find a perfect place to stay in their traveling period. Its provide a smooth experience on booking Rooms.
 
-Currently, two official plugins are available:
+**Purpose:**
+The purpose of this website is to provide users with a convenient, fast, and user-friendly platform to search, compare, and book hotel rooms online. It allows customers to browse through available rooms, view prices, check amenities, read reviews, and make reservations in real-time—whether for business trips, vacations, or spontaneous getaways.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Features:**
+Visit Different Rooms
+Select Room based on avaiblity
+Post their review based on their experience
+Cancel Room Reservation any time (Before at least 1 day)
+Update date from previous date
+Login and Signup to store their data permanently
+Logout any time
 
-## Expanding the ESLint configuration
+**Pakages used to built this site:**
+React icons
+Framer motion
+Moment js
+pegion map
+sweetalert2
+react-hot-toast
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+**Client-Side Repository**
+**Server-Side Repository**
+**Live Site URL**
