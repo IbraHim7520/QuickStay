@@ -24,9 +24,9 @@ const RoomDetails = () => {
 
     const [Book, setBook] = useState(Booked);
     const [userreviews, setReviews] = useState(reviews)
-
+    const [roomBookedBy , setRoomBookedBy] = useState(BookedBy)
     const handlePostReview = () => {
-        if (BookedBy.includes(User?.email)) {
+        if (roomBookedBy.includes(User?.email)) {
             // alert(User?.email);
             document.getElementById("reviewModal").show()
             return
@@ -46,9 +46,10 @@ const RoomDetails = () => {
         e.preventDefault()
         const review = e.target.review.value;
         const username = e.target.username.value;
+    
       //  const time = new Date();
         const Review = {
-            RoomID : _id,
+            RoomID : id,
             User : username,
             Review : review,
             Rating: rating,
@@ -65,11 +66,12 @@ const RoomDetails = () => {
             if(data.acknowledged){
                 toast.success("Review Added successfully")
                 e.target.reset();
-                document.getElementById('my_modal').close()
+                setReviews([...userreviews, Review])
+                document.getElementById('reviewModal').close()
             }else{
                 toast.error("Unable to post review!");
                   e.target.reset();
-                document.getElementById('my_modal').close()
+                document.getElementById('reviewModal').close()
             }
         })
     }
@@ -95,6 +97,7 @@ const RoomDetails = () => {
             }).then(res => res.json())
                 .then(data => {
                     setBook(true)
+                    setRoomBookedBy(User?.email);
                     toast.success('Room has been Booked!')
                     document.getElementById('my_modal').close()
                     console.log(data)
@@ -250,9 +253,9 @@ const RoomDetails = () => {
                             <img src={norating} className='w-24'></img>
                     </div>
                     :
-                    <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 space-y-1 justify-items-center items-center justify-center'>
+                    <div className='grid mt-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 space-y-1 justify-items-center items-center justify-center'>
                             {
-                                reviews.map(review=> <ReviewCard review={review}  key={review.RoomID}></ReviewCard> )
+                                userreviews.map(review=> <ReviewCard  review={review}  key={review.RoomID}></ReviewCard> )
                             }
                     </div>
 
