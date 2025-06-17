@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "userName": "Emily Carter",
+    "image": "https://cdn.pixabay.com/photo/2022/09/28/12/14/people-7484926_960_720.jpg",
+    "rating": 5,
+    "opinion": "The entire experience was fantastic. The room was spotless and the staff was super attentive. Will visit again!"
+  },
+  {
+    "id": 2,
+    "userName": "Daniel Schmidt",
+    "image": "https://wallpapers.com/images/hd/people-pictures-l249k27mbdjw72lh.jpg",
+    "rating": 4,
+    "opinion": "Really good service and beautiful location. Just wish the Wi-Fi was a little faster. Otherwise, excellent!"
+  },
+  {
+    "id": 3,
+    "userName": "Sofia Bianchi",
+    "image": "https://image.marriage.com/advice/wp-content/uploads/2019/12/Maintaining-a-Healthy-Mind-and-Body-Can-Help-to-Enhance-and-Lengthen-a-Marriage-1606055241.jpg",
+    "rating": 5,
+    "opinion": "Perfect for a romantic weekend. The view from our balcony was breathtaking. Highly recommended!"
+  },
+  {
+    "id": 4,
+    "userName": "Lucas Novak",
+    "image": "https://th.bing.com/th/id/OIP.fUb8TY6Qc8IfXH0jWTY7xAHaE8?rs=1&pid=ImgDetMain",
+    "rating": 4,
+    "opinion": "Very comfortable room and great value for the price. I’d definitely come back here on my next trip."
+  }
+]
