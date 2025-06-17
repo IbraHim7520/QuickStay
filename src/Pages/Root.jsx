@@ -5,9 +5,9 @@ import Footer from '../Components/Footer';
 const Root = () => {
     const path = useLocation();
     return (
-        <div >
+        <div>
                         <Navbar></Navbar>
-                        <div className='min-h-[calc(100vh-395px)]'>
+                        <div>
                             <Outlet></Outlet>
                         </div>
                         <Footer></Footer>
