@@ -15,15 +15,59 @@ Update date from previous date
 Login and Signup to store their data permanently
 Logout any time
 
-**Pakages used to built this site:**
-React icons
-Framer motion
-Moment js
-pegion map
-sweetalert2
-react-hot-toast
+### 💻 Frontend
+- **React.js**
+- **Tailwind CSS**
+- **DaisyUI**
+- **Firebase Authentication**
+- **React Router**
+- **React Icons**
+- **React Toastify**
+
+### 🔧 Backend
+- **Node.js**
+- **Express.js**
+- **MongoDB (Mongoose)**
+- **JWT (JSON Web Token)**
+- **Cors**
+- **Dotenv**
+
+---
+
+## 📦 Dependency List
+
+### 🔹 Frontend
+- `react-router-dom`
+- `firebase`
+- `react-icons`
+- `react-toastify`
+- `tailwindcss`
+- `daisyui`
+
+### 🔹 Backend
+- `express`
+- `mongoose`
+- `cors`
+- `dotenv`
+- `jsonwebtoken`
+- `nodemon`
+
+## 🧑‍💻 How to Run This Project Locally
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com//quickstay.git
+cd quickstay
+
+**Setup Backend**
+cd server
+npm install
+
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+
+**Start Server**
+npm run start
 
 
-**Client-Side Repository**
-**Server-Side Repository**
-**Live Site URL**
