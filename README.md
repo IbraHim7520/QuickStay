@@ -71,3 +71,7 @@ JWT_SECRET=your_secret_key
 npm run start
 
 
+<strong>Live Link</strong>
+https://fabulous-scone-f034f1.netlify.app/
+
+
