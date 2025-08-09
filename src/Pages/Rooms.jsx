@@ -84,7 +84,7 @@ const Rooms = () => {
                                  <div className='w-full'>
                                     {
                                     Cardclick ?
-                                        <div className='mt-12 grid justify-items-center space-y-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4'>
+                                        <div className='mt-12 grid justify-items-center space-y-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
                                             {
                                                 roomData.map(room => <RoomCard room={room} key={room._id}></RoomCard>)
                                             }
