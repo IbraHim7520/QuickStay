@@ -14,7 +14,7 @@ const MyBookings = () => {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         const token = localStorage.getItem("token");
-        axios(`https://mern-hotel-booking-a11.vercel.app/get_booked_room/${User?.email}`, {
+        axios(`${import.meta.env.VITE_API_URL}/get_booked_room/${User?.email}`, {
             headers: {
             Authorization:`Bearer ${token}`
             }
@@ -41,7 +41,7 @@ const MyBookings = () => {
     const updateBookingDate = (e , bookedRoomID) => {
         e.preventDefault()
         const updatedDate = e.target.date.value;
-        fetch(`https://mern-hotel-booking-a11.vercel.app/update-booking/${bookedRoomID}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/update-booking/${bookedRoomID}`, {
             method: 'PATCH',
             headers: {
                 'content-type': "application/json"
@@ -79,7 +79,7 @@ const MyBookings = () => {
                 confirmButtonText: "Yes, delete it!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    fetch(`https://mern-hotel-booking-a11.vercel.app/cancel_booking/${id}`, {
+                    fetch(`${import.meta.env.VITE_API_URL}/cancel_booking/${id}`, {
                         method: 'DELETE'
                     }).then(promis => promis.json())
                         .then(data => {

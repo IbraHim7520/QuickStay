@@ -54,7 +54,7 @@ const RoomDetails = () => {
             Review : review,
             Rating: rating,
         }
-        fetch('https://mern-hotel-booking-a11.vercel.app/add-reviews', {
+        fetch(`${import.meta.env.VITE_API_URL}/add-reviews`, {
             method:"PATCH",
             headers: {
                 'content-type' : 'application/json'
@@ -84,7 +84,7 @@ const RoomDetails = () => {
         if (time.includes('ago')) {
             toast.error("You cannot Book on previous date");
         } else {
-            fetch(`https://mern-hotel-booking-a11.vercel.app/room_booking/${_id}`, {
+            fetch(`${import.meta.env.VITE_API_URL}/room_booking/${_id}`, {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json'

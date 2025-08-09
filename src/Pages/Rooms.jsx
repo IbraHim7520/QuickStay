@@ -10,7 +10,7 @@ const Rooms = () => {
     const [roomData, setRoomData] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        fetch('https://mern-hotel-booking-a11.vercel.app/getRooms')
+        fetch(`${import.meta.env.VITE_API_URL}/getRooms`)
             .then(res => res.json())
             .then(data => {
                 if (data) {
@@ -37,7 +37,7 @@ const Rooms = () => {
         e.preventDefault()
         const filter = e.target.value;
         const update_filter = filter.toLowerCase(filter.replaceAll(" ", "_"))
-       fetch(`https://mern-hotel-booking-a11.vercel.app/filtered_data/${update_filter}`)
+       fetch(`${import.meta.env.VITE_API_URL}/filtered_data/${update_filter}`)
        .then(promis=> promis.json())
        .then(data => {
         setRoomData(data)

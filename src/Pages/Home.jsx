@@ -14,7 +14,7 @@ const Home = () => {
     const [testimonials, setTestimonials] = useState([]);
     const [offer, setOffer] = useState([]);
     useEffect(() => {
-        fetch('https://mern-hotel-booking-a11.vercel.app/roomDetails')
+        fetch(`${import.meta.env.VITE_API_URL}/roomDetails`)
             .then(res => res.json()).then(data => {
                 if (data) {
                     setLoading(false)
@@ -29,7 +29,7 @@ const Home = () => {
             })
         fetch('hoteloffer.json').then(res => res.json()).then(data => setOffer(data))
 
-        fetch('https://mern-hotel-booking-a11.vercel.app/get-top-reviews')
+        fetch(`${import.meta.env.VITE_API_URL}/get-top-reviews`)
             .then(res => res.json())
             .then(data => {
                 setTestimonials(data);
