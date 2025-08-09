@@ -53,7 +53,7 @@ const Home = () => {
                     </div>
                 </div>
             </dialog>
-            <section className='mt-12 xl:mt-24 px-3 md:px-8  lg:px-16'>
+            <section className='my-24 xl:mt-24 px-3 md:px-8  lg:px-16'>
                 <h1 className='text-center mb-4 text-3xl xl:text-5xl font-semibold'>Featured Destination</h1>
                 <p className='text-center xl:text-lg '>Discover our handpicked selection of exceptional properties around the world, offering<br></br>unparalleled luxury and unforgettable experiences.</p>
                 <div className='xl:mt-12'>
@@ -91,17 +91,13 @@ const Home = () => {
 
             </section>
 
-            <section className='mt-12 px-3 md:px-8  lg:px-16'>
-                <div className='flex justify-between items-center'>
-                    <div>
+            <section className='my-24 px-3 md:px-8  lg:px-16'>
+                
+                    <div className='text-center'>
                         <h1 className='text-2xl xl:text-4xl font-semibold'>Exclusive Offers</h1>
                         <p className='xl:text-lg'>Take advantage of our limited-time offers and special packages to enhance<br></br>your stay and create unforgettable memories.</p>
                     </div>
-                    <div className='flex gap-2 items-center '>
-                        <h1 className='text-sm '>View All Offers</h1>
-                        <FaArrowRight size={13}></FaArrowRight>
-                    </div>
-                </div>
+                
                 <div className='mt-12 grid grid-cols-2 lg:grid-cols-3 gap-3'>
                     {
                         offer.map(ofer => <OfferCard key={ofer.id} ofer={ofer} ></OfferCard>)
