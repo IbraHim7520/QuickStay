@@ -16,35 +16,42 @@ const router = createBrowserRouter([
 
             {
                 index: true,
-                Component: Home
+                Component: Home,
+                errorElement: Error
             },
             {
                 path: '/rooms',
-                Component: Rooms
+                Component: Rooms,
+                errorElement:Error
             },
             {
                 path: "/login",
-                Component: Login
+                Component: Login,
+                errorElement:Error
             },
             {
                 path: "/signup",
-                Component: Signup
+                Component: Signup,
+                errorElement:Error
             },
             {
                 path: "/my-bookings",
-                Component: MyBookings
+                Component: MyBookings,
+                errorElement:Error
             },
             {
                 path: "/rooms_details/:id",
                 loader: ({params})=> fetch(`https://mern-hotel-booking-a11.vercel.app/get_oneroom/${params.id}`),
-                Component: RoomDetails
+                Component: RoomDetails,
+                errorElement:Error
             },
             {
                 path: '*',
                 element: <Error></Error>
             }
 
-        ]
+        ],
+        errorElement:Error
     }
 ])
 export default router
